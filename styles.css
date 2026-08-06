@@ -1,0 +1,370 @@
+/*
+  PeerPrep design system
+  -----------------------
+  Concept: interview experiences as "filed records" in a shared logbook —
+  each post reads like a stamped ticket stub, tagged by company/role the
+  way a boarding pass is tagged by flight/gate. Karma reads as a wax-seal
+  style verification stamp, reinforcing the trust theme of the platform.
+
+  Palette:
+    --ink:       #1B2430  (near-black navy, primary text)
+    --paper:     #F7F6F2  (warm paper white, background)
+    --paper-2:   #FFFFFF  (card surfaces)
+    --rule:      #DEDAD1  (hairline dividers/borders)
+    --brass:     #B8862E  (verification/karma accent — a wax-seal brass)
+    --brass-dim: #E8DAC0  (soft brass background for badges)
+    --danger:    #A23B32  (errors)
+
+  Type:
+    Display/headlines: "Newsreader" (editorial serif, italic for emphasis)
+    Body: "Inter"
+    Metadata/tags/stamps: "IBM Plex Mono" (ticket-stub, logbook feel)
+*/
+
+:root {
+  --ink: #1B2430;
+  --ink-soft: #4A5568;
+  --paper: #F7F6F2;
+  --paper-2: #FFFFFF;
+  --rule: #DEDAD1;
+  --brass: #B8862E;
+  --brass-dim: #EFE4CB;
+  --danger: #A23B32;
+  --danger-dim: #F5E1DE;
+
+  --font-display: "Newsreader", Georgia, serif;
+  --font-body: "Inter", -apple-system, sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+
+button {
+  font-family: var(--font-body);
+  cursor: pointer;
+}
+
+.app-shell {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 20px 80px;
+}
+
+/* ---------- Navbar ---------- */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 0;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 32px;
+}
+
+.navbar .brand {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.navbar nav {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.navbar .karma-badge {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  background: var(--brass-dim);
+  color: var(--brass);
+  padding: 4px 9px;
+  border-radius: 3px;
+  border: 1px solid var(--brass);
+}
+
+/* ---------- Ticket-stub post cards ---------- */
+.post-card {
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  margin-bottom: 18px;
+  overflow: hidden;
+  transition: box-shadow 0.15s ease;
+}
+
+.post-card:hover {
+  box-shadow: 0 2px 14px rgba(27, 36, 48, 0.06);
+}
+
+.post-stub-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 18px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.03em;
+}
+
+.post-stub-header .company-tag {
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.post-body { padding: 18px; }
+
+.post-title {
+  font-family: var(--font-display);
+  font-size: 21px;
+  font-weight: 500;
+  margin: 0 0 8px;
+}
+
+.post-meta-row {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-soft);
+  margin-bottom: 10px;
+}
+
+.post-type-badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 3px;
+  border: 1px solid var(--rule);
+  letter-spacing: 0.05em;
+}
+.post-type-badge.referral { background: var(--danger-dim); color: var(--danger); border-color: var(--danger); }
+
+.post-excerpt {
+  color: var(--ink-soft);
+  font-size: 15px;
+}
+
+.post-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 18px;
+  border-top: 1px dashed var(--rule);
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+
+.upvote-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: 1px solid var(--rule);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+.upvote-btn.active {
+  background: var(--brass-dim);
+  border-color: var(--brass);
+  color: var(--brass);
+}
+.upvote-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ---------- Filter bar ---------- */
+.filter-bar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.filter-bar input, .filter-bar select {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  padding: 9px 12px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  background: var(--paper-2);
+  color: var(--ink);
+}
+.filter-bar input { flex: 1; }
+
+/* ---------- Forms ---------- */
+.form-card {
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 28px;
+  max-width: 480px;
+  margin: 40px auto;
+}
+
+.form-card h1 {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: 26px;
+  margin-top: 0;
+}
+
+.field { margin-bottom: 16px; }
+.field label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+  margin-bottom: 6px;
+}
+.field input, .field textarea, .field select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  font-family: var(--font-body);
+  font-size: 14px;
+  background: var(--paper);
+}
+.field textarea { resize: vertical; min-height: 120px; }
+
+.checkbox-field {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin-bottom: 16px;
+}
+
+.btn-primary {
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  border-radius: 4px;
+  padding: 11px 20px;
+  font-size: 14px;
+  font-weight: 500;
+  width: 100%;
+}
+.btn-primary:disabled { opacity: 0.6; }
+
+.error-banner {
+  background: var(--danger-dim);
+  color: var(--danger);
+  border: 1px solid var(--danger);
+  border-radius: 4px;
+  padding: 10px 14px;
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.form-footer-link {
+  text-align: center;
+  font-size: 13px;
+  color: var(--ink-soft);
+  margin-top: 16px;
+}
+.form-footer-link a { color: var(--brass); font-weight: 500; }
+
+/* ---------- Post detail ---------- */
+.post-detail-content {
+  font-size: 16px;
+  white-space: pre-wrap;
+  line-height: 1.7;
+  padding: 0 18px 18px;
+}
+
+.comments-section { margin-top: 28px; }
+.comments-section h3 {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 10px;
+}
+
+.comment {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.comment-author {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--brass);
+  margin-bottom: 4px;
+}
+
+.comment-form {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+}
+.comment-form input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  font-family: var(--font-body);
+}
+.comment-form button {
+  background: var(--ink);
+  color: var(--paper);
+  border: none;
+  border-radius: 4px;
+  padding: 0 18px;
+  font-size: 13px;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--ink-soft);
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+
+.page-title {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 28px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.back-link {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-soft);
+  margin-bottom: 16px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
